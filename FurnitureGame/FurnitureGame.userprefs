@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Controllers/EventListeners/Input/TouchEvents/Touch_Object.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Controllers/EventListeners/Input/InputListener.cs" Line="38" Column="25" />
+      <File FileName="Assets/Scripts/Controllers/EventListeners/Input/TouchEvents/Touch_Button.cs" Line="37" Column="42" />
+      <File FileName="Assets/Scripts/Controllers/EventListeners/Input/TouchEvents/A_Touch.cs" Line="22" Column="35" />
+      <File FileName="Assets/Scripts/Controllers/EventListeners/Input/TouchEvents/Touch_Object.cs" Line="30" Column="6" />
+      <File FileName="Assets/Scripts/Controllers/GlobalGameManager.cs" Line="18" Column="45" />
+      <File FileName="Assets/Scripts/Controllers/InGameController.cs" Line="6" Column="26" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
