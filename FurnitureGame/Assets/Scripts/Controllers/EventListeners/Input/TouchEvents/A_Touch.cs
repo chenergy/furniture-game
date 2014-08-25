@@ -52,7 +52,7 @@ namespace InputFramework{
 				this.OnTouchEnd();
 			}
 			#else
-			if (Input.touchCount > 0) {
+			if (Input.touchCount == 1) {
 				for (int i = 0; i < Input.touchCount; i++) {
 					Touch currentTouch = Input.GetTouch (i);
 					this.screenPos = new Vector2(this.inputCamera.ScreenToWorldPoint(currentTouch.position).x, this.inputCamera.ScreenToWorldPoint(currentTouch.position).y);
@@ -79,7 +79,7 @@ namespace InputFramework{
 						}
 					}
 				} 
-			} else {
+			} else if (Input.touchCount == 0) {
 				this.currentObj = null;
 				this.OnTouchEnd();
 			}
