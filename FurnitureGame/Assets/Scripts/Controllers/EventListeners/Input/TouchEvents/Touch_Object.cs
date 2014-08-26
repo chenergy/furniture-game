@@ -10,11 +10,12 @@ namespace InputFramework{
 		private GameObject touchTarget;
 		private GameObject rotationParent;
 		private Transform oldParent;
+		private bool hasTwoTouched = false;
 
 		// 2 finger zoom
 		private Vector3 startScale = Vector3.one;
 		private Vector2 startVectorDiff = Vector3.zero;
-		private Vector2 curVectorDiff = Vector3.zero;
+		//private Vector2 curVectorDiff = Vector3.zero;
 
 
 		protected override void OnTouchBegan ()
@@ -44,16 +45,22 @@ namespace InputFramework{
 		{
 #if UNITY_IOS
 			if (Input.touchCount == 1) {
-#endif
 				if (this.touchTarget != null){
 					Vector3 touchRotation = (this.curPosition - this.startPosition);
 					touchRotation = new Vector3 (touchRotation.y, touchRotation.x * -1);
 					this.rotationParent.transform.rotation = Quaternion.Euler (touchRotation * this.rotationRate);
 					Debug.Log (this.touchTarget.transform.rotation.ToString());
 				}
-#if UNITY_IOS
 			} else if (Input.touchCount == 2){
-
+				Vector2 curVectorDiff = Input.touches[0].position - Input.touches[1].position;
+				this.transform.localScale = this.startScale * (curVectorDiff.magnitude - this.startVectorDiff.magnitude);
+			}
+#else
+			if (this.touchTarget != null){
+				Vector3 touchRotation = (this.curPosition - this.startPosition);
+				touchRotation = new Vector3 (touchRotation.y, touchRotation.x * -1);
+				this.rotationParent.transform.rotation = Quaternion.Euler (touchRotation * this.rotationRate);
+				Debug.Log (this.touchTarget.transform.rotation.ToString());
 			}
 #endif
 		}
@@ -78,8 +85,13 @@ namespace InputFramework{
 		{
 			base.Update ();
 
-			if (Input.touchCount == 2){
-
+			if (!this.hasTwoTouched){
+				if (Input.touchCount == 2){
+					if (this.currentObj != null){
+						this.hasTwoTouched = true;
+					}
+					this.OnTouchBegan();
+				}
 			}
 		}
 	}
