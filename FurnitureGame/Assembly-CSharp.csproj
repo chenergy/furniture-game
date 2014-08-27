@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\InputListener.cs" />
      <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\A_Touch.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\TouchButton.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\TouchObject.cs" />
      <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\Touch_Button.cs" />
      <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\Touch_Object.cs" />
      <Compile Include="Assets\Scripts\Controllers\GlobalGameManager.cs" />
