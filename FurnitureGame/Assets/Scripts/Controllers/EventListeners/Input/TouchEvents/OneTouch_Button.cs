@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 
-namespace InputFramework{
-	public class Touch_Button : A_Touch
+namespace InputFramework
+{
+	public class OneTouch_Button : A_OneTouch
 	{
 		private bool isDown = false;
 		private bool isPressed = false;
@@ -16,15 +17,15 @@ namespace InputFramework{
 			get { return this.isDown; }
 		}
 		
-		protected override void OnTouchBegan() { 
-			StartCoroutine ("ButtonDown");
+		public override void OnTouchBegan() { 
 			this.isPressed = true;
-			//Debug.Log ("Touched");
+			this.isDown = true;
+
+			StartCoroutine ("ButtonDown");
 		}
 		
-		protected override void OnTouchMoved() { 
+		public override void OnTouchMoved() { 
 			if (this.currentObj != null) {
-				//this.screenPos = new Vector2(Camera.main.ScreenToWorldPoint(this.mousePos).x, Camera.main.ScreenToWorldPoint(this.mousePos).y);
 				this.screenPos = new Vector2(this.inputCamera.ScreenToWorldPoint(this.mousePos).x, this.inputCamera.ScreenToWorldPoint(this.mousePos).y);
 				Collider2D c2d = Physics2D.OverlapPoint(screenPos);
 				
@@ -34,18 +35,12 @@ namespace InputFramework{
 			}
 		}
 		
-		protected override void OnTouchEnd() { 
+		public override void OnTouchEnd() { 
 			this.isPressed = false;
 		}
 		
 		IEnumerator ButtonDown(){
-			this.isDown = true;
-			int count = 0;
-			
-			while (count < 1) {
-				yield return new WaitForEndOfFrame();
-				count++;
-			}
+			yield return new WaitForEndOfFrame();
 			
 			this.isDown = false;
 		}

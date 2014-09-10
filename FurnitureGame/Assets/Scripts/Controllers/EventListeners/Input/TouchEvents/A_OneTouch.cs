@@ -2,24 +2,24 @@
 using System.Collections;
 
 
-namespace InputFramework{
-	public abstract class A_Touch : MonoBehaviour
+namespace InputFramework
+{
+	public abstract class A_OneTouch : MonoBehaviour, ITouchable
 	{
 		public Camera inputCamera;
+		public GameObject touchArea;
 
-		protected GameObject touchArea;
 		protected Vector2 startPosition;
 		protected Vector2 curPosition;
 		protected Vector2 mousePos;
 		protected Vector2 screenPos;
 		protected GameObject currentObj;
 		
-		protected virtual void Start(){
-			this.touchArea = this.gameObject;
+		void Start(){
 			this.startPosition = new Vector2 (this.touchArea.transform.position.x, this.touchArea.transform.position.y);
 		}
 		
-		protected virtual void Update(){
+		void Update(){
 			this.mousePos = Input.mousePosition;
 			
 			#if UNITY_EDITOR
@@ -60,7 +60,7 @@ namespace InputFramework{
 					
 					if(c2d != null)
 					{
-						if (this.touchObject == c2d.gameObject){
+						if (this.touchArea == c2d.gameObject){
 							if (this.currentObj == null){
 								this.currentObj = c2d.gameObject;
 								this.curPosition = screenPos;
@@ -79,7 +79,7 @@ namespace InputFramework{
 						}
 					}
 				} 
-			} else if (Input.touchCount == 0) {
+			} else if (Input.touchCount == 0 && this.currentObj != null) {
 				this.currentObj = null;
 				this.OnTouchEnd();
 			}
@@ -87,8 +87,8 @@ namespace InputFramework{
 			#endif
 		}
 		
-		protected abstract void OnTouchBegan();
-		protected abstract void OnTouchMoved();
-		protected abstract void OnTouchEnd();
+		public abstract void OnTouchBegan();
+		public abstract void OnTouchMoved();
+		public abstract void OnTouchEnd();
 	}
 }

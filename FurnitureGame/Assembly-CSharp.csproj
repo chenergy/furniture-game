@@ -47,13 +47,22 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\InputListener.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\A_Touch.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\TouchButton.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\TouchObject.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\Touch_Button.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\Touch_Object.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\A_OneTouch.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\A_TwoTouch.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\ITouchable.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\OneTouch_Button.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\OneTouch_Drag.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\OneTouch_Rotate.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\OneTouch_Spawn.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\TwoTouch_Zoom.cs" />
      <Compile Include="Assets\Scripts\Controllers\GlobalGameManager.cs" />
      <Compile Include="Assets\Scripts\Controllers\InGameController.cs" />
+     <Compile Include="Assets\Scripts\Model\A_Fastener.cs" />
+     <Compile Include="Assets\Scripts\Model\A_FurniturePart.cs" />
+     <Compile Include="Assets\Scripts\Model\A_Hole.cs" />
+     <Compile Include="Assets\Scripts\Model\A_Tool.cs" />
+     <Compile Include="Assets\Scripts\Model\Enumerators.cs" />
+     <Compile Include="Assets\Scripts\Model\IAttachable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

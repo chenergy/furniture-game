@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 namespace InputFramework{
-	public class Touch_Object : A_Touch
+	public class OneTouch_Rotate : A_OneTouch
 	{
 		public float rotationRate = 1.0f;
 
@@ -18,32 +18,42 @@ namespace InputFramework{
 		//private Vector2 curVectorDiff = Vector3.zero;
 
 
-		protected override void OnTouchBegan ()
+		public override void OnTouchBegan ()
 		{
 			if (InGameController.Instance != null){
 				if (InGameController.Instance.target != null){
-#if UNITY_IOS
+					this.startPosition = this.screenPos;
+					this.touchTarget = InGameController.Instance.target;
+					this.oldParent = this.touchTarget.transform.parent;
+					this.rotationParent = new GameObject();
+					this.rotationParent.transform.position = this.touchTarget.transform.position;
+					this.touchTarget.transform.parent = this.rotationParent.transform;
+
+					/*
 					if (Input.touchCount == 1) {
-#endif
 						this.startPosition = this.screenPos;
 						this.touchTarget = InGameController.Instance.target;
 						this.oldParent = this.touchTarget.transform.parent;
 						this.rotationParent = new GameObject();
 						this.rotationParent.transform.position = this.touchTarget.transform.position;
 						this.touchTarget.transform.parent = this.rotationParent.transform;
-#if UNITY_IOS
 					} else if (Input.touchCount == 2){
 						this.startScale = this.transform.localScale;
 						this.startVectorDiff = Input.touches[0].position - Input.touches[1].position;
-					}
-#endif
+					}*/
 				}
 			}
 		}
 
-		protected override void OnTouchMoved ()
+		public override void OnTouchMoved ()
 		{
-#if UNITY_IOS
+			if (this.touchTarget != null){
+				Vector3 touchRotation = (this.curPosition - this.startPosition);
+				touchRotation = new Vector3 (touchRotation.y, touchRotation.x * -1);
+				this.rotationParent.transform.rotation = Quaternion.Euler (touchRotation * this.rotationRate);
+				Debug.Log (this.touchTarget.transform.rotation.ToString());
+			}
+			/*
 			if (Input.touchCount == 1) {
 				if (this.touchTarget != null){
 					Vector3 touchRotation = (this.curPosition - this.startPosition);
@@ -55,17 +65,10 @@ namespace InputFramework{
 				Vector2 curVectorDiff = Input.touches[0].position - Input.touches[1].position;
 				this.transform.localScale = this.startScale * (curVectorDiff.magnitude - this.startVectorDiff.magnitude);
 			}
-#else
-			if (this.touchTarget != null){
-				Vector3 touchRotation = (this.curPosition - this.startPosition);
-				touchRotation = new Vector3 (touchRotation.y, touchRotation.x * -1);
-				this.rotationParent.transform.rotation = Quaternion.Euler (touchRotation * this.rotationRate);
-				Debug.Log (this.touchTarget.transform.rotation.ToString());
-			}
-#endif
+			*/
 		}
 
-		protected override void OnTouchEnd ()
+		public override void OnTouchEnd ()
 		{
 			if (this.touchTarget != null){
 				this.touchTarget.transform.parent = this.oldParent;
@@ -81,6 +84,7 @@ namespace InputFramework{
 			Gizmos.DrawLine(this.startPosition, this.curPosition);
 		}
 
+		/*
 		protected override void Update ()
 		{
 			base.Update ();
@@ -93,7 +97,7 @@ namespace InputFramework{
 					this.OnTouchBegan();
 				}
 			}
-		}
+		}*/
 	}
 }
 	
