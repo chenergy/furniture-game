@@ -15,11 +15,5 @@ public abstract class A_FurniturePart : MonoBehaviour
 	{
 		this.attachedParts = new A_FurniturePart[this.attachmentPoints.Length];
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
 }
 

@@ -22,7 +22,7 @@ namespace InputFramework{
 		{
 			if (InGameController.Instance != null){
 				if (InGameController.Instance.target != null){
-					this.startPosition = this.screenPos;
+					this.startPosition = this.screenToWorldPos;
 					this.touchTarget = InGameController.Instance.target;
 					this.oldParent = this.touchTarget.transform.parent;
 					this.rotationParent = new GameObject();

@@ -26,8 +26,8 @@ namespace InputFramework
 		
 		public override void OnTouchMoved() { 
 			if (this.currentObj != null) {
-				this.screenPos = new Vector2(this.inputCamera.ScreenToWorldPoint(this.mousePos).x, this.inputCamera.ScreenToWorldPoint(this.mousePos).y);
-				Collider2D c2d = Physics2D.OverlapPoint(screenPos);
+				this.screenToWorldPos = new Vector2(this.inputCamera.ScreenToWorldPoint(this.mousePos).x, this.inputCamera.ScreenToWorldPoint(this.mousePos).y);
+				Collider2D c2d = Physics2D.OverlapPoint(screenToWorldPos);
 				
 				if (c2d == null){
 					this.currentObj = null;
