@@ -8,6 +8,7 @@ namespace InputFramework
 	{
 		private bool isDown = false;
 		private bool isPressed = false;
+		private bool downToggle = false;
 		
 		public bool IsPressed{
 			get { return this.isPressed; }
@@ -17,14 +18,17 @@ namespace InputFramework
 			get { return this.isDown; }
 		}
 		
-		public override void OnTouchBegan() { 
-			this.isPressed = true;
-			this.isDown = true;
-
-			StartCoroutine ("ButtonDown");
+		public Vector2 TouchPosition {
+			get { return this.screenToWorldPos; }
 		}
 		
-		public override void OnTouchMoved() { 
+		protected override void OnTouchBegan() { 
+			this.isPressed = true;
+			this.isDown = true;
+			this.downToggle = true;
+		}
+		
+		protected override void OnTouchMoved() { 
 			if (this.currentObj != null) {
 				this.screenToWorldPos = new Vector2(this.inputCamera.ScreenToWorldPoint(this.mousePos).x, this.inputCamera.ScreenToWorldPoint(this.mousePos).y);
 				Collider2D c2d = Physics2D.OverlapPoint(screenToWorldPos);
@@ -35,14 +39,23 @@ namespace InputFramework
 			}
 		}
 		
-		public override void OnTouchEnd() { 
+		protected override void OnTouchEnd() { 
 			this.isPressed = false;
+			this.isDown = false;
+			this.downToggle = false;
 		}
 		
-		IEnumerator ButtonDown(){
-			yield return new WaitForEndOfFrame();
+		protected override void Update ()
+		{
+			base.Update ();
 			
-			this.isDown = false;
+			if (this.isDown) {
+				if (this.downToggle){
+					this.downToggle = false;
+				} else {
+					this.isDown = false;
+				}
+			}
 		}
 	}
 }

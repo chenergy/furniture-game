@@ -2,13 +2,16 @@
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/Managers/InGameController.cs">
     <Files>
-      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/EventListeners/InputListener.cs" Line="9" Column="40" />
-      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/Managers/InGameController.cs" Line="428" Column="11" />
-      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/EventListeners/TouchListener/ButtonTouch.cs" Line="45" Column="4" />
-      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/Managers/GameTimer.cs" Line="104" Column="2" />
-      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/Networking/NetworkingComponent.cs" Line="363" Column="56" />
-      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/Networking/NetworkViewController.cs" Line="76" Column="6" />
-      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Model/Fighters/A_Fighter.cs" Line="290" Column="6" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/EventListeners/InputListener.cs" Line="203" Column="5" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/Managers/InGameController.cs" Line="514" Column="55" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/EventListeners/TouchListener/ButtonTouch.cs" Line="40" Column="42" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/Managers/GameTimer.cs" Line="60" Column="31" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/Networking/NetworkingComponent.cs" Line="221" Column="14" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Model/Fighters/A_Fighter.cs" Line="257" Column="6" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/EventListeners/TouchListener/A_TouchListener.cs" Line="34" Column="21" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/EventListeners/TouchListener/JoystickTouch.cs" Line="47" Column="12" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Controller/EventListeners/TouchListener/SwipeTouch.cs" Line="1" Column="1" />
+      <File FileName="../../../../2d-fighter-framework-unity/Assets/Scripts/Model/Fighters/FighterMovement.cs" Line="21" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

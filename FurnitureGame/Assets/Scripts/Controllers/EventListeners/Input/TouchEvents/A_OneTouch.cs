@@ -18,15 +18,14 @@ namespace InputFramework
 
 		private bool ended = true;
 		
-		void Start(){
+		protected virtual void Start(){
 			this.startPosition = new Vector2 (this.touchArea.transform.position.x, this.touchArea.transform.position.y);
 		}
 		
-		void Update(){
-			this.mousePos = Input.mousePosition;
-			
+		protected virtual void Update(){
 #if UNITY_EDITOR
 			if (Input.GetMouseButton(0)){
+				this.mousePos = Input.mousePosition;
 				this.screenToWorldPos = new Vector2(this.inputCamera.ScreenToWorldPoint(this.mousePos).x, this.inputCamera.ScreenToWorldPoint(this.mousePos).y);
 				this.InputUpdate(this.screenToWorldPos);
 			} else {
