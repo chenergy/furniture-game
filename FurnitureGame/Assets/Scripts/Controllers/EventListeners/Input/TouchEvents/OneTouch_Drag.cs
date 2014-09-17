@@ -6,21 +6,17 @@ namespace InputFramework{
 	{
 		public override void OnTouchBegan ()
 		{
-			this.touchArea.rigidbody.useGravity = false;
+			this.inputTouchArea.rigidbody.useGravity = false;
 		}
 		
 		public override void OnTouchMoved ()
 		{
-			this.touchArea.transform.position = this.inputCamera.ScreenToWorldPoint (this.curPosition);
+			this.inputTouchArea.transform.position = this.curWorldPoint;
 		}
 		
 		public override void OnTouchEnd ()
 		{
-			this.touchArea.rigidbody.useGravity = false;
-		}
-		
-		void OnDrawGizmos(){
-			Gizmos.DrawLine(this.startPosition, this.curPosition);
+			this.inputTouchArea.rigidbody.useGravity = false;
 		}
 	}
 }

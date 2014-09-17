@@ -18,28 +18,29 @@ namespace InputFramework
 			get { return this.isDown; }
 		}
 		
-		public Vector2 TouchPosition {
-			get { return this.screenToWorldPos; }
-		}
+		/*public Vector2 TouchPosition {
+			get { return this.curScreenPoint; }
+		}*/
 		
-		protected override void OnTouchBegan() { 
+		public override void OnTouchBegan() { 
 			this.isPressed = true;
 			this.isDown = true;
 			this.downToggle = true;
 		}
 		
-		protected override void OnTouchMoved() { 
-			if (this.currentObj != null) {
-				this.screenToWorldPos = new Vector2(this.inputCamera.ScreenToWorldPoint(this.mousePos).x, this.inputCamera.ScreenToWorldPoint(this.mousePos).y);
-				Collider2D c2d = Physics2D.OverlapPoint(screenToWorldPos);
+		public override void OnTouchMoved() { 
+			/*if (this.currentObj != null) {
+				Vector3 p = this.inputCamera.ScreenToWorldPoint(this.mousePos);
+				this.screenToWorldPos = new Vector2(p.x, p.y);
+				Collider2D c2d = Physics2D.OverlapPoint(this.screenToWorldPos);
 				
 				if (c2d == null){
 					this.currentObj = null;
 				}
-			}
+			}*/
 		}
 		
-		protected override void OnTouchEnd() { 
+		public override void OnTouchEnd() { 
 			this.isPressed = false;
 			this.isDown = false;
 			this.downToggle = false;

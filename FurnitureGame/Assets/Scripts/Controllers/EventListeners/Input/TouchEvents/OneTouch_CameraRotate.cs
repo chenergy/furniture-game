@@ -4,7 +4,6 @@ using System.Collections;
 namespace InputFramework{
 	public class OneTouch_CameraRotate : A_OneTouch
 	{
-		// 1 finger rotation
 		public GameObject cameraParent;
 		public float rotationRate = 1.0f;
 
@@ -14,7 +13,7 @@ namespace InputFramework{
 		public override void OnTouchBegan ()
 		{
 			if (this.cameraParent != null){
-				this.startPosition = this.screenToWorldPos;
+				this.firstScreenPoint = this.curWorldPoint;
 				this.startRotationEuler = this.cameraParent.transform.rotation.eulerAngles;
 			}
 		}
@@ -22,7 +21,7 @@ namespace InputFramework{
 		public override void OnTouchMoved ()
 		{
 			if (this.cameraParent != null) {
-				Vector3 touchRotation = (this.curPosition - this.startPosition);
+				Vector3 touchRotation = (this.curScreenPoint - this.firstScreenPoint);
 				touchRotation = new Vector3 (touchRotation.y * -1, touchRotation.x);
 				Vector3 newRotation = new Vector3 (touchRotation.x * this.rotationRate, touchRotation.y * this.rotationRate, 0);
 				this.cameraParent.transform.rotation = Quaternion.Euler (this.startRotationEuler + newRotation);
