@@ -5,7 +5,7 @@ public class A_Tool
 {
 	public FastenerType[] targetTypes;
 
-	public void CombineObjects (A_FurniturePart parent, A_FurniturePart child, A_Fastener fastener){
+	public void CombineObjects (FurniturePart parent, FurniturePart child, A_Fastener fastener){
 		//parent
 	}
 }

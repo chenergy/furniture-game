@@ -1,39 +1,23 @@
 using UnityEngine;
+//using UnityEditor;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using InputFramework;
 
 public class InputListener : MonoBehaviour {
-	public 		Camera			inputCamera;
-	public 		GameObject 		inputTouchArea;
-	public 		A_OneTouch[] 	touchElements;
-	
-	protected 	Vector2 		firstScreenPoint;
-	protected 	Vector2 		lastScreenPoint;
-	protected 	Vector2 		curScreenPoint;
-	
-	private 	bool 			started = false;
-	private 	bool 			ended 	= true;
-	private		ITouchable 		curTouchElement;
+	public Camera inputCamera;
+	public bool viewGizmos = false;
 
+	private TouchInfo[] touches;
 	private static InputListener instance = null;
 
 
-	public Vector2 CurScreenPoint {
-		get { return this.curScreenPoint; }
+	public TouchInfo[] Touches {
+		get { return this.touches; }
 	}
-	
-	public Vector3 CurInputWorldPoint {
-		get { return this.inputCamera.ScreenToWorldPoint(this.curScreenPoint); }
-	}
-	
-	public Camera InputCamera{
-		get { return instance.inputCamera; }
-	}
-	
-	public static InputListener Instance{
-		get { return InputListener.instance; }
+
+	public static InputListener Instance {
+		get { return instance; }
 	}
 
 
@@ -46,124 +30,100 @@ public class InputListener : MonoBehaviour {
 	}
 
 	void Start (){
-		// Set initial positions to zero
-		this.firstScreenPoint = this.lastScreenPoint = this.curScreenPoint = Vector3.zero;
+		this.touches = new TouchInfo[] { new TouchInfo (0), new TouchInfo (1) };
 	}
-	
+
 	void Update (){
 		#if UNITY_EDITOR
-		if (Input.GetMouseButton(0)){
+		TouchInfo mouseTouch = this.touches [0];
+
+		if (Input.GetMouseButton (0)) {
+			Vector2 mousePos = new Vector2 (Input.mousePosition.x, Input.mousePosition.y);
+
 			// Call for an input update using mouse position
-			this.InputUpdate (Input.mousePosition);
-		} 
+			if (Input.GetMouseButtonDown (0)) {
+				mouseTouch.OnTouchBegan (mousePos);
+			} else {
+				if ((mousePos - mouseTouch.LastScreenPoint).sqrMagnitude > 0)
+					mouseTouch.OnTouchMoved (mousePos);
+				else
+					mouseTouch.OnTouchStationary (mousePos);
+			}
+		} else {
+			if (!mouseTouch.IsEnded)
+				mouseTouch.OnTouchEnd ();
+			else if (mouseTouch.IsUp)
+				mouseTouch.OnTouchFinished ();
+		}
+
 		#elif UNITY_IOS
 		if (Input.touchCount > 0) {
-			// Call for an input update using the first touch position
-			foreach (Touch t in Input.touches) {
-				this.InputUpdate(t.position);
+			for (int i = 0; i < 2; i++) {
+				Touch inputTouch = Input.touches [i];
+				Vector2 touchPos = inputTouch.position;
+
+				switch (inputTouch.phase) {
+				case TouchPhase.Began:
+					this.touches [i].OnTouchBegan (touchPos);
+					break;
+				case TouchPhase.Moved:
+					this.touches [i].OnTouchMoved (touchPos);
+					break;
+				case TouchPhase.Stationary:
+					this.touches [i].OnTouchStationary (touchPos);
+					break;
+				case TouchPhase.Ended:
+					if (!this.touches [i].IsEnded)
+						this.touches [i].OnTouchEnd ();
+					else if (this.touches [i].IsUp)
+						this.touches [i].OnTouchFinished ();
+					break;
+				default:
+					break;
+				}
 			}
-		}        
-		#endif
-		// If no input...
-		else {
-			// Call OnTouchEnd if touch has not yet been ended
-			if (!this.ended) {
-				this._OnTouchEnd (this.curTouchElement);
+		} else {
+			foreach (TouchInfo t in this.touches) {
+				if (!t.IsEnded)
+					t.OnTouchEnd ();
+				else if (t.IsUp)
+					t.OnTouchFinished ();
 			}
 		}
+		#endif
 	}
-	
-	protected virtual void OnDrawGizmos (){
-		if (Application.isEditor)
-			if (Camera.current == this.inputCamera)
-				Gizmos.DrawLine (this.inputCamera.ScreenToWorldPoint(this.firstScreenPoint) + Vector3.forward, this.CurInputWorldPoint + Vector3.forward);
-		
-		//Debug.Log (Camera.current.name);
-	}
-	
-	
-	// Call to check/update based on input values
-	private void InputUpdate (Vector3 inputPoint){
-		// Update the current input on the screen
-		this.curScreenPoint = new Vector2 (inputPoint.x, inputPoint.y);
 
-		// Get a collider2D at the world point
-		Collider2D c2d = Physics2D.OverlapPoint (this.CurInputWorldPoint);
-		
-		// If world point overlaps with a collider2D...
-		if (c2d != null) {
-			foreach (A_OneTouch t in this.touchElements) {
-				// If the assigned touch area is the same as the collider2D...
-				if (t.inputTouchArea == c2d.gameObject) {
-					// If OnTouchBegan has not yet been called...
-					if (!this.started) {
-						// Call OnTouchBegan
-						this._OnTouchBegan (t);
-					} else {
-						// Call OnTouchMove if touch location is different from last saved point
-						if ((this.curScreenPoint - this.lastScreenPoint).sqrMagnitude > 0) {
-							// Call OnTouchMoved
-							this._OnTouchMoved (t);
+
+	void OnDrawGizmos (){
+		if (this.viewGizmos) {
+			if (Application.isEditor) {
+				if (Camera.current == this.inputCamera/* || Camera.current == SceneView.lastActiveSceneView.camera*/) {
+					if (this.touches != null) {
+						foreach (TouchInfo t in this.touches) {
+							Vector3 firstWorldPoint = this.ScreenToWorldPoint (t.FirstScreenPoint, CameraType.INPUT);
+							Vector3 curWorldPoint = this.ScreenToWorldPoint (t.CurScreenPoint, CameraType.INPUT);
+
+							Gizmos.DrawLine (firstWorldPoint, curWorldPoint);
+							Gizmos.DrawSphere (curWorldPoint, 0.25f);
 						}
 					}
 				}
 			}
 		}
-		
-		// If world point does not overlap with a collider2D...
-		else {
-			// If the touch has already started...
-			if (this.started) {
-				// Call OnTouchMove if touch location is different from last saved point
-				if ((this.curScreenPoint - this.lastScreenPoint).sqrMagnitude > 0) {
-					// Call OnTouchMoved
-					this._OnTouchMoved (this.curTouchElement);
-				}
-			} else {
-				// Call OnTouchEnd if touch has not yet been ended
-				if (!this.ended) {
-					this._OnTouchEnd (this.curTouchElement);
-				}
-			}
-		}
-	}
-	
-	
-	// Private helper functions for touch events
-	private void _OnTouchBegan(ITouchable target) {
-		this.started = true;
-		this.ended = false;
-		this.firstScreenPoint = this.lastScreenPoint = this.curScreenPoint;
-		this.curTouchElement = target;
-		target.OnTouchBegan();
-	}
-	
-	private void _OnTouchMoved(ITouchable target){
-		this.lastScreenPoint = this.curScreenPoint;
-		target.OnTouchMoved();
-	}
-	
-	private void _OnTouchEnd(ITouchable target){
-		this.started = false;
-		this.ended = true;
-		this.firstScreenPoint = this.lastScreenPoint = this.curScreenPoint = Vector3.zero;
-		this.curTouchElement = null;
-		if (target != null) target.OnTouchEnd();
 	}
 
-	/*
-	public bool GetButton(int button){
-		if (instance.instantiateBtns.Length > button) {
-			return instance.instantiateBtns[button].IsPressed;
+
+	public Vector3 ScreenToWorldPoint (Vector2 screenPoint, CameraType camera){
+		if (camera == CameraType.INPUT) {
+			Vector3 curInputWorldPoint = InputListener.Instance.inputCamera.ScreenToWorldPoint (screenPoint);
+			curInputWorldPoint = new Vector3 (curInputWorldPoint.x, curInputWorldPoint.y, 0.0f);
+			return curInputWorldPoint; 
+		} else if (camera == CameraType.MAIN) {
+			Vector3 curInputWorldPoint = Camera.main.ScreenToWorldPoint (screenPoint);
+			curInputWorldPoint = new Vector3 (curInputWorldPoint.x, curInputWorldPoint.y, 0.0f);
+			return curInputWorldPoint; 
 		}
-		return false;
+
+		return Vector3.zero;
 	}
-	
-	
-	public bool GetButtonDown(int button){
-		if (instance.instantiateBtns.Length > button) {
-			return instance.instantiateBtns[button].IsDown;
-		}
-		return false;
-	}*/
 }

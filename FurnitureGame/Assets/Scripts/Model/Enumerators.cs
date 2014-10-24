@@ -33,3 +33,8 @@ public enum ButtonType {
 	ROTATION
 };
 
+public enum CameraType {
+	MAIN,
+	INPUT
+};
+
