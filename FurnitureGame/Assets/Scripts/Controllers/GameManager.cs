@@ -3,7 +3,10 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+	private InGameController inGameController = null;
+
 	private static GameManager instance = null;
+
 
 	void Awake (){
 		if (instance == null){
@@ -15,7 +18,12 @@ public class GameManager : MonoBehaviour
 	}
 
 	public static GameManager Instance {
-		get { return GameManager.instance; }
+		get { return instance; }
+	}
+
+	public InGameController InGameController {
+		get { return instance.inGameController; }
+		set { instance.inGameController = value; }
 	}
 }
 

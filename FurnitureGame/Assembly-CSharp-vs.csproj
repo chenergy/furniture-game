@@ -39,20 +39,13 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>/Applications/Unity4.6.0/Unity4.6.0.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>/Applications/Unity4.6.0/Unity4.6.021b.app/Contents/Frameworks/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>/Applications/Unity4.6.0/Unity4.6.0.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>/Applications/Unity4.6.0/Unity4.6.021b.app/Contents/Frameworks/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\ITouchable.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\InputListener.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\A_TouchListener.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\ButtonTouch.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\DragTouch.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchEvents\JoystickTouch.cs" />
-     <Compile Include="Assets\Scripts\Controllers\EventListeners\Input\TouchInfo.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameManager.cs" />
      <Compile Include="Assets\Scripts\Controllers\InGameController.cs" />
      <Compile Include="Assets\Scripts\Model\A_Fastener.cs" />
@@ -64,10 +57,12 @@
      <Compile Include="Assets\Scripts\Model\FurniturePart.cs" />
      <Compile Include="Assets\Scripts\Model\IAttachable.cs" />
      <Compile Include="Assets\Scripts\Model\WoodFastener.cs" />
+     <Compile Include="Assets\Scripts\TouchEvents\Touch_CameraRotate.cs" />
+     <Compile Include="Assets\Scripts\TouchEvents\Touch_Drag.cs" />
      <None Include="Assets\Shaders\Toon\ToonLighted.shader" />
      <None Include="Assets\Shaders\Toon\ToonIlluminatedOutline.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>/Applications/Unity4.6.0/Unity4.6.0.app/Contents/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Applications/Unity4.6.0/Unity4.6.021b.app/Contents/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,21 +8,13 @@ public class InGameController : MonoBehaviour
 	public GameObject target;
 	public AssemblyInstructions instructions;
 
-	private static InGameController instance = null;
 
+	private GameObject partToCreatePrefab;
 
-	public static InGameController Instance {
-		get { return InGameController.instance; }
+	void Start (){
+		GameManager.Instance.InGameController = this;
 	}
 
-	void Awake (){
-		if (instance == null){
-			DontDestroyOnLoad(this);
-			instance = this;
-		} else {
-			Destroy(this.gameObject);
-		}
-	}
 
 	public void DragInstantiate (GameObject objectToCreate, Collider targetCollider){
 		//Debug.Log ("drag instantiate");
@@ -47,8 +40,14 @@ public class InGameController : MonoBehaviour
 		}
 	}
 
+
 	public void TouchEvent (string name){
 		//Debug.Log ("touch event");
+	}
+
+
+	public void SelectedPart (GameObject part){
+		this.partToCreatePrefab = part;
 	}
 }
 
