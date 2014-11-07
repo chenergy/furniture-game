@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-interface IAttachable{
-	void AttachToTarget (IAttachable attachment);
+public interface IAttachable{
+	void AttachToSelf (IAttachable source);
+	void AttachToTarget (IAttachable target);
 }
 

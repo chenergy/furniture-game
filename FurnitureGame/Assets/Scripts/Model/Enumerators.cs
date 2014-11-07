@@ -3,38 +3,27 @@ using System.Collections;
 
 public enum ToolType {
 	NONE,
-	HAMMER,
-	SCREWDRIVER_FLAT,
-	SCREWDRIVER_CROSS,
-	ALLEN,
-	HEX,
+	HAMMER
 
 };
 
-public enum PartType {
-	BLOCK
+public enum BasePartType {
+	NONE,
+	PLANK
 };
 
 public enum FastenerType {
-	SCREW,
+	NONE,
 	NAIL
 };
 
-public enum ProductName {
-	MALM
-};
-
 public enum InsertionType {
-	HOLE,
+	NONE,
+	HOLE
 };
 
-public enum ButtonType {
-	SELECTION,
-	ROTATION
-};
-
-public enum CameraType {
-	MAIN,
-	INPUT
+public enum ProductName {
+	NONE,
+	MALM_BENCH
 };
 

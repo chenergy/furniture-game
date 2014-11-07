@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraEventDirector : MonoBehaviour
 {
-	// Parent of the target camera. Using the parent guarantees that the camera parent not rotated
+	// Parent of the target camera. Using the parent guarantees that the camera parent not rotated.
 	public GameObject cameraParent;
 
 	// Reference to camera in order to adjust aperture attributes
