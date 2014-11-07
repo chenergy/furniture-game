@@ -3,27 +3,32 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class InGameController : MonoBehaviour
+public class InGameDirector : MonoBehaviour
 {
+	// Current target
 	public GameObject target;
+
+	// Set of instructions for constructing this object
 	public AssemblyInstructions instructions;
 
 
-	private GameObject partToCreatePrefab;
+	//private GameObject partToCreatePrefab;
 
 	void Start (){
-		GameManager.Instance.InGameController = this;
+		GameDirector.Instance.InGameController = this;
 	}
 
 
 	public void DragInstantiate (GameObject objectToCreate, Collider targetCollider){
 		//Debug.Log ("drag instantiate");
 		//GameObject.Instantiate (gobj, Vector3.zero, Quaternion.identity);
-		A_Part part = objectToCreate.GetComponent<A_Part> ();
+		A_Part partToCreate = objectToCreate.GetComponent<A_Part> ();
 
-		if (part != null) {
+		if (partToCreate != null) {
 			foreach (AssemblyTask task in this.instructions.CurrentStep.tasks) {
-				if (task.targetCollider == targetCollider && task.partToAttach.partName == part.partName) {
+				A_Part taskPart = task.partToAttachPrefab.GetComponent<A_Part> ();
+
+				if (task.targetCollider == targetCollider && taskPart.partName == partToCreate.partName) {
 					GameObject gobj = GameObject.Instantiate (objectToCreate, Vector3.zero, Quaternion.identity) as GameObject;
 					gobj.collider.enabled = false;
 					gobj.transform.Rotate (0f, 0f, 90f);
@@ -32,8 +37,8 @@ public class InGameController : MonoBehaviour
 				} else {
 					Debug.Log (task.targetCollider);
 					Debug.Log (targetCollider);
-					Debug.Log (task.partToAttach.partName);
-					Debug.Log (part.partName);
+					Debug.Log (taskPart.partName);
+					Debug.Log (partToCreate.partName);
 					Debug.Log ("object creation failed");
 				}
 			}
@@ -46,8 +51,8 @@ public class InGameController : MonoBehaviour
 	}
 
 
-	public void SelectedPart (GameObject part){
+	/*public void SelectedPart (GameObject part){
 		this.partToCreatePrefab = part;
-	}
+	}*/
 }
 

@@ -11,7 +11,7 @@ public enum ToolType {
 
 };
 
-public enum FurniturePartType {
+public enum PartType {
 	BLOCK
 };
 

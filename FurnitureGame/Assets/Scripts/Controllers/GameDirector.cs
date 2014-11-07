@@ -1,11 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour
+public class GameDirector : MonoBehaviour
 {
-	private InGameController inGameController = null;
+	private InGameDirector inGameController = null;
 
-	private static GameManager instance = null;
+	private static GameDirector instance = null;
 
 
 	void Awake (){
@@ -17,11 +17,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public static GameManager Instance {
+	public static GameDirector Instance {
 		get { return instance; }
 	}
 
-	public InGameController InGameController {
+	public InGameDirector InGameController {
 		get { return instance.inGameController; }
 		set { instance.inGameController = value; }
 	}

@@ -46,8 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Controllers\GameManager.cs" />
-     <Compile Include="Assets\Scripts\Controllers\InGameController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\CameraEventDirector.cs" />
+     <Compile Include="Assets\Scripts\Controllers\GameDirector.cs" />
+     <Compile Include="Assets\Scripts\Controllers\InGameDirector.cs" />
      <Compile Include="Assets\Scripts\Model\A_Fastener.cs" />
      <Compile Include="Assets\Scripts\Model\A_Hole.cs" />
      <Compile Include="Assets\Scripts\Model\A_Part.cs" />

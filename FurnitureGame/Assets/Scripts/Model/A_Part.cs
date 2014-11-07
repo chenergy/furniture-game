@@ -4,6 +4,7 @@ using System.Collections;
 public abstract class A_Part : MonoBehaviour
 {
 	public string partName;
+	public PartType type;
 
 	// Use this for initialization
 	protected virtual void Start ()
