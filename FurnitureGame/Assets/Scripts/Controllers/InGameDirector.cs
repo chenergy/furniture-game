@@ -5,61 +5,63 @@ using System.Collections.Generic;
 
 public class InGameDirector : MonoBehaviour
 {
-	// Current target
-	//public GameObject target;
-	public ProductName productToCreate;
-	public GameObject[] productPrefabs;
+	// List of prefab parts that can be accessed.
+	public GameObject[] partPrefabs;
 
-	private Product productInstance;
-	private Dictionary <ProductName, GameObject> productDictionary;
+	// Reference to product to be created.
+	private A_Product product;
+	public A_Product Product {
+		get { return this.product; }
+	}
+
+	// Dictionary reference to assigned part prefabs by part name.
+	private Dictionary <PartName, GameObject> nameToPartPrefab = new Dictionary<PartName, GameObject> ();
 
 
 	void Start (){
-		GameDirector.Instance.InGameController = this;
+		// Assign this to reference in GameDirector.
+		GameDirector.Instance.InGameDirector = this;
 
-		this.productDictionary = new Dictionary<ProductName, GameObject> ();
-
-		foreach (GameObject prefab in this.productPrefabs) {
-			this.productDictionary.Add ((ProductName)System.Enum.Parse (typeof(ProductName), prefab.name), prefab);
+		// Init the dictionary based on partName of objects (string).
+		foreach (GameObject partPrefab in this.partPrefabs) {
+			// Ensure that the prefab has a attachable part script.
+			A_AttachablePart part = partPrefab.GetComponent<A_AttachablePart> ();
+			if (part != null) {
+				// Create a reference to the prefab based on a part name.
+				this.nameToPartPrefab.Add (part.partName, partPrefab);
+			}
 		}
 
-		if (this.productDictionary.ContainsKey (this.productToCreate)) {
-			this.productInstance = (GameObject.Instantiate (this.productDictionary [this.productToCreate], Vector3.zero, Quaternion.identity) as GameObject)
-			.GetComponent<Product> ();
-		}
+		// Reference to the starting product based on GameDirector.
+		this.product = this.CreateProduct (GameDirector.Instance.ProductToCreate);
 	}
 
 
-	/*public void BuildPart (GameObject part){
+	// Return a prefab given a PartName.
+	public GameObject GetProductPrefab (PartName part) {
+		/*foreach (KeyValuePair<PartName,GameObject> kvp in this.nameToPartPrefab) {
+			Debug.Log (kvp.Key.ToString ());
+		}*/
 
-	}*/
+		if (this.nameToPartPrefab.ContainsKey (part))
+			return this.nameToPartPrefab [part];
+		return null;
+	}
 
 
-	/*public void DragInstantiate (GameObject objectToCreate, Collider targetCollider){
-		A_Part partToCreate = objectToCreate.GetComponent<A_Part> ();
-
-		if (partToCreate != null) {
-			foreach (AssemblyTask task in this.instructions.CurrentStep.tasks) {
-				if (task.targetCollider == targetCollider && task.partToAttachName == partToCreate.partName) {
-					GameObject gobj = GameObject.Instantiate (objectToCreate, Vector3.zero, Quaternion.identity) as GameObject;
-					gobj.collider.enabled = false;
-					gobj.transform.Rotate (0f, 0f, 90f);
-					gobj.transform.parent = target.transform;
-					Debug.Log ("object creation successful");
-				} else {
-					Debug.Log (task.targetCollider);
-					Debug.Log (targetCollider);
-					Debug.Log (task.partToAttachName);
-					Debug.Log (partToCreate.partName);
-					Debug.Log ("object creation failed");
-				}
-			}
+	// Construct a product based on the product name.
+	private A_Product CreateProduct (ProductName productName) {
+		switch (productName) {
+		case ProductName.MALM_BENCH:
+			return new Product_MalmBench (this);
+			break;
+		default:
+			break;
 		}
-	}*/
 
-
-	/*public void SelectedPart (GameObject part){
-		this.partToCreatePrefab = part;
-	}*/
+		// Product was not found.
+		Debug.Log ("Product not found.");
+		return null;
+	}
 }
 

@@ -1,13 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Model/InsertionPoint.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Model/A_InsertionPoint.cs">
     <Files>
-      <File FileName="Assets/Scripts/Model/IAttachable.cs" Line="8" Column="8" />
-      <File FileName="Assets/Scripts/Model/Tool.cs" Line="2" Column="2" />
-      <File FileName="Assets/Scripts/Model/Product.cs" Line="2" Column="2" />
-      <File FileName="Assets/Scripts/Model/Fastener.cs" Line="52" Column="52" />
-      <File FileName="Assets/Scripts/Model/BasePart.cs" Line="52" Column="52" />
-      <File FileName="Assets/Scripts/Model/InsertionPoint.cs" Line="52" Column="52" />
+      <File FileName="Assets/Scripts/Model/A_Joint.cs" Line="2" Column="2" />
+      <File FileName="Assets/Scripts/Model/A_Base.cs" Line="2" Column="2" />
+      <File FileName="Assets/Scripts/Model/A_InsertionPoint.cs" Line="32" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TouchDrag_Fastener : TouchDrag
+public abstract class A_Joint : A_AttachablePart
 {
 
 }

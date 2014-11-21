@@ -1,25 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-public enum ToolType {
+
+public enum PartType {
 	NONE,
+	TOOL,
+	BASE,
+	FASTENER,
+	INSERTION_POINT,
+	JOINT
+};
+
+public enum PartName {
+	NONE,
+	PLANK,
+	NAIL,
+	NAIL_HOLE,
 	HAMMER
-
-};
-
-public enum BasePartType {
-	NONE,
-	PLANK
-};
-
-public enum FastenerType {
-	NONE,
-	NAIL
-};
-
-public enum InsertionType {
-	NONE,
-	HOLE
 };
 
 public enum ProductName {

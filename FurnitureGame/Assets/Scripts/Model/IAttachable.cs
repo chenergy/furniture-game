@@ -1,8 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public interface IAttachable{
-	void AttachToSelf (IAttachable source);
-	void AttachToTarget (IAttachable target);
+interface IAttachable
+{
+	void AttachTo (A_AttachablePart source);
 }
 

@@ -20,9 +20,10 @@ public class TouchCameraRotate : MonoBehaviour, IPointerDownHandler, IPointerUpH
 	// Initial rotation on initial touch
 	private Vector3 startRotationEuler;
 
-	//private Vector2 touch1;
-	//private Vector2 touch2;
+	// Initial difference between 2 touches
 	private Vector2 startTouchDelta;
+
+	// Initial fov saved on initial touch
 	private float startFOV;
 
 
@@ -36,22 +37,31 @@ public class TouchCameraRotate : MonoBehaviour, IPointerDownHandler, IPointerUpH
 		}
 	}
 
+
 	public void OnPointerUp (PointerEventData eventData){
-		/*this.touch1 = this.touch2 = */this.startTouchDelta = Vector2.zero;
+		// Init delta between 2 touches as zero
+		this.startTouchDelta = Vector2.zero;
+
+		// Init FOV as zero
 		this.startFOV = 0.0f;
 	}
+
 
 	public void OnDrag (PointerEventData eventData){
 		// If two touch, pinch to zoom
 		if (Input.touchCount > 1) {
 			if (this.startTouchDelta == Vector2.zero) {
-				//this.startTouchDelta = this.touch2 - this.touch1;
+				// If not yet set (0,0,0), set delta to the difference between 2 touches
 				this.startTouchDelta = Input.touches [1].position - Input.touches [0].position;
+
+				// If not yet set (0), set fov to the camera fov
 				this.startFOV = this.cameraEventDirector.GetFOV ();
 			} else {
+				// Get the new delta between two touches
 				Vector2 newTouchDelta = Input.touches [1].position - Input.touches [0].position;
-				//this.cameraEventDirector.targetCamera.fieldOfView = this.startFOV + (newTouchDelta.magnitude - this.startTouchDelta.magnitude) * this.zoomRate;
-				this.cameraEventDirector.SetFOV (this.startFOV + (newTouchDelta.magnitude - this.startTouchDelta.magnitude) * this.zoomRate);
+
+				// Set new fov as the difference between new and start deltas
+				this.cameraEventDirector.SetFOV (this.startFOV - (newTouchDelta.magnitude - this.startTouchDelta.magnitude) * this.zoomRate);
 			}
 		} 
 
