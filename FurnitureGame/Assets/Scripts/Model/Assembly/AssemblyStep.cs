@@ -12,20 +12,39 @@ public class AssemblyStep {
 	public AssemblyStep () { }
 
 
+
+	// Startup actions when beginning a new step.
+	public void StartStep (){
+
+	}
+
+
 	// Add a task to list of tasks.
 	public void AddTask (AssemblyTask task){
 		this.tasks.Add (task);
 	}
 		
 
-	// Given a task number, set it as completed.
-	public void SetTaskCompleted (int taskId){
-		this.tasks [taskId].SetTaskAsCompleted ();
+	// Check tasks to see if completed.
+	public bool HasCompletedTask (PartName sourcePart, string sourceId, PartName targetPart, string targetId, InteractionEvent iEvent) {
+		foreach (AssemblyTask task in this.tasks) {
+			if (task.HasCompletedTask (sourcePart, sourceId, targetPart, targetId, iEvent)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 
+	// Given a task number, set it as completed.
+	/*public void SetTaskCompleted (int taskId){
+		this.tasks [taskId].SetTaskAsCompleted ();
+	}*/
+
+
 	// Check if all tasks have been completed in step.
-	public bool IsStepCompleted (){
+	private bool IsStepCompleted (){
 		// Check each task for completion.
 		foreach (AssemblyTask task in this.tasks) {
 			// Return false if one task is not completed.

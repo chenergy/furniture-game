@@ -39,13 +39,15 @@ public class InGameDirector : MonoBehaviour
 
 	// Return a prefab given a PartName.
 	public GameObject GetProductPrefab (PartName part) {
-		/*foreach (KeyValuePair<PartName,GameObject> kvp in this.nameToPartPrefab) {
-			Debug.Log (kvp.Key.ToString ());
-		}*/
-
 		if (this.nameToPartPrefab.ContainsKey (part))
 			return this.nameToPartPrefab [part];
 		return null;
+	}
+
+
+	// Method called when interaction event occurs.
+	public void OnInteractionEvent (PartName sourcePart, string sourceId, PartName targetPart, string targetId, InteractionEvent iEvent) {
+		this.product.CheckTaskCompletion (sourcePart, sourceId, targetPart, targetId, iEvent);
 	}
 
 
@@ -54,7 +56,6 @@ public class InGameDirector : MonoBehaviour
 		switch (productName) {
 		case ProductName.MALM_BENCH:
 			return new Product_MalmBench (this);
-			break;
 		default:
 			break;
 		}

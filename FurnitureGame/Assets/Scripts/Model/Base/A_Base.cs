@@ -12,11 +12,18 @@ public abstract class A_Base : A_AttachablePart
 	// Use this for initialization
 	void Start ()
 	{
-		foreach (Transform t in this.holePoints) {
+		for (int i = 0; i < this.holePoints.Length; i++) {
+			Transform t = this.holePoints [i];
+
 			GameObject newHole = GameObject.Instantiate (this.holePrefab) as GameObject;
 			newHole.transform.parent = t;
 			newHole.transform.localPosition = Vector3.zero;
 			newHole.transform.localRotation = Quaternion.identity;
+
+			A_AttachablePart part = newHole.GetComponent<A_AttachablePart> ();
+			if (part != null) {
+				part.AssignTaskId (i.ToString ());
+			}
 		}
 	}
 }

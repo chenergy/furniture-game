@@ -23,12 +23,25 @@ public abstract class A_AttachablePart : MonoBehaviour, IAttachable, IInteractab
 	protected A_AttachablePart parentPart;
 
 	// TaskId assigned by the task during each step.
-	protected int taskId;
+	protected string taskId;
+	public string TaskId {
+		get { return this.taskId; }
+	}
 
+	// Next id appended to a new child part when instantiated.
+	protected int nextId = 0;
+
+
+
+	// Return the next id to be assigned to a child part.
+	public string GetNewChildTaskId (){
+		this.nextId++;
+		return this.taskId + (this.nextId - 1).ToString();
+	}
 
 
 	// Assign a taskId.
-	public void AssignTaskId (int taskId){
+	public void AssignTaskId (string taskId){
 		this.taskId = taskId;
 	}
 
@@ -49,6 +62,9 @@ public abstract class A_AttachablePart : MonoBehaviour, IAttachable, IInteractab
 
 		// Prevent other targets from colliding with it.
 		this.parentPart.collider.enabled = false;
+
+		// Get the taskId based on the parent.
+		this.taskId = parentPart.GetNewChildTaskId ();
 	}
 
 

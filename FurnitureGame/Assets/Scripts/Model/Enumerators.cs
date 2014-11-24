@@ -24,3 +24,10 @@ public enum ProductName {
 	MALM_BENCH
 };
 
+
+public enum InteractionEvent {
+	NONE,
+	ATTACH,
+	INSERT
+};
+

@@ -42,8 +42,10 @@ public abstract class A_Product
 
 
 	// Set a task as completed.
-	public void CompletedTask (A_AttachablePart part1, A_AttachablePart part2){
-
+	public void CheckTaskCompletion (PartName sourcePart, string sourceId, PartName targetPart, string targetId, InteractionEvent iEvent) {
+		if (this.instructions.HasCompletedTask (sourcePart, sourceId, targetPart, targetId, iEvent)) {
+			Debug.Log ("Completed Task!");
+		}
 	}
 }
 
