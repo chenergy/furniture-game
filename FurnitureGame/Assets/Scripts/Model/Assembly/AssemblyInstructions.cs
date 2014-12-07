@@ -30,6 +30,13 @@ public class AssemblyInstructions
 	}
 
 
+	// Perform the startup actions of the current step.
+	public void StartCurrentStep (){
+		this.steps [this.currentStepNum].StartStep ();
+	}
+
+
+	// Check if the task with the given criteria has been completed.
 	public bool HasCompletedTask (PartName sourcePart, string sourceId, PartName targetPart, string targetId, InteractionEvent iEvent) {
 		return this.steps[this.currentStepNum].HasCompletedTask (sourcePart, sourceId, targetPart, targetId, iEvent);
 	}

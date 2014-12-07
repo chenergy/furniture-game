@@ -34,6 +34,9 @@ public class InGameDirector : MonoBehaviour
 
 		// Reference to the starting product based on GameDirector.
 		this.product = this.CreateProduct (GameDirector.Instance.ProductToCreate);
+
+		// Activate the start step.
+		this.product.StartStep ();
 	}
 
 

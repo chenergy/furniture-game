@@ -22,7 +22,7 @@ public abstract class TouchDrag : MonoBehaviour, IPointerDownHandler, IDragHandl
 		this.draggedPrefab = GameObject.Instantiate (this.prefabToDrag, eventData.position, Quaternion.identity) as GameObject;
 
 		// Parent it to this object (displays on the canvas).
-		this.draggedPrefab.transform.parent = this.transform;
+		this.draggedPrefab.transform.SetParent (this.transform);
 	}
 
 

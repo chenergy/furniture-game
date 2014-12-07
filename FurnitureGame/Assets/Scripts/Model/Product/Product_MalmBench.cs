@@ -7,9 +7,6 @@ public class Product_MalmBench : A_Product
 	public Product_MalmBench (InGameDirector inGameDirector) 
 		: base (inGameDirector) {
 
-		// Get reference to starting prefab.
-		GameObject startingPrefab = inGameDirector.GetProductPrefab (PartName.PLANK);
-
 		// Create necessary tasks, steps, and instructions.
 		AssemblyTask task1 = new AssemblyTask (PartName.NAIL, "00", PartName.NAIL_HOLE, "0", InteractionEvent.INSERT);
 		AssemblyTask task2 = new AssemblyTask (PartName.NAIL, "10", PartName.NAIL_HOLE, "1", InteractionEvent.INSERT);
@@ -24,10 +21,15 @@ public class Product_MalmBench : A_Product
 		step1.AddTask (task3);
 		step1.AddTask (task4);
 
+		// Get reference to starting prefab for step 1.
+		GameObject startingPrefab = inGameDirector.GetProductPrefab (PartName.PLANK);
+
+		step1.AddStartPart (startingPrefab, Vector3.zero, Quaternion.identity);
+
 		instructions.AddStep (step1);
 
 		// Initialize the starting prefab.
-		this.InitStartingPrefab (startingPrefab);
+		//this.InitStartingPrefab (startingPrefab);
 
 		// Initizalize the assembly instructions.
 		this.InitAssemblyInstructions (instructions);
