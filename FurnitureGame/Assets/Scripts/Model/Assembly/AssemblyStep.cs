@@ -50,7 +50,7 @@ public class AssemblyStep {
 	}
 
 
-	// Check tasks to see if completed.
+	// Check tasks to see if a task with the given parameters has completed.
 	public bool HasCompletedTask (PartName sourcePart, string sourceId, PartName targetPart, string targetId, InteractionEvent iEvent) {
 		foreach (AssemblyTask task in this.tasks) {
 			if (task.HasCompletedTask (sourcePart, sourceId, targetPart, targetId, iEvent)) {
@@ -60,12 +60,6 @@ public class AssemblyStep {
 
 		return false;
 	}
-
-
-	// Given a task number, set it as completed.
-	/*public void SetTaskCompleted (int taskId){
-		this.tasks [taskId].SetTaskAsCompleted ();
-	}*/
 
 
 	// Check if all tasks have been completed in step.

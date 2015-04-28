@@ -14,11 +14,6 @@ public class AssemblyInstructions
 		get { return this.currentStepNum; }
 	}
 
-	// Get current step based on step number.
-	/*public AssemblyStep CurrentStep { 
-		get { return this.steps[this.currentStepNum]; }
-	}*/
-
 
 	// Constructor.
 	public AssemblyInstructions (){ }
@@ -40,13 +35,5 @@ public class AssemblyInstructions
 	public bool HasCompletedTask (PartName sourcePart, string sourceId, PartName targetPart, string targetId, InteractionEvent iEvent) {
 		return this.steps[this.currentStepNum].HasCompletedTask (sourcePart, sourceId, targetPart, targetId, iEvent);
 	}
-
-	// Set a task as completed given a task number.
-	/*public void SetTaskCompletedInCurrentStep (int taskNum){
-		// Find and set the task as completed in the current step.
-		this.CurrentStep.SetTaskCompleted (taskNum);
-
-		// Test for step completion.
-	}*/
 }
 

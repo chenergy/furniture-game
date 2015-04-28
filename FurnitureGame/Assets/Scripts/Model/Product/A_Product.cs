@@ -30,14 +30,6 @@ public abstract class A_Product
 		this.instructions.StartCurrentStep ();
 	}
 
-	// Create the first base prefab.
-	/*protected virtual void InitStartingPrefab (GameObject initialBasePrefab){
-		// Add it to the list of base parts.
-		this.attachedBases.Add (
-			(GameObject.Instantiate (initialBasePrefab, Vector3.zero, Quaternion.identity) as GameObject)
-			.GetComponent<A_Base> ());
-	}*/
-
 
 	// Assign reference to given instructions created.
 	protected virtual void InitAssemblyInstructions (AssemblyInstructions instructions){

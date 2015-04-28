@@ -51,10 +51,5 @@ public class AssemblyTask {
 
 		return false;
 	}
-
-	// When task is finished, set it as completed.
-	/*public void SetTaskAsCompleted () {
-		this.isCompleted = true;
-	}*/
 }
 

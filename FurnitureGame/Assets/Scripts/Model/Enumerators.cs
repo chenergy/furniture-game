@@ -15,7 +15,7 @@ public enum PartName {
 	NONE,
 	PLANK,
 	NAIL,
-	NAIL_HOLE,
+	HOLE_NAIL,
 	HAMMER
 };
 
